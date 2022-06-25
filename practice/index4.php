@@ -1,20 +1,32 @@
 <?php
 
-$sum = [1,32,4,5,7,];
+$sum = [6,32,4,5,7];
 
-function sumArray($array) {
-    $m = array_search(min($array), $array);
-    $a = array_search(max($array), $array);
+function sumArray1(array $array) {
+    $min = min($array);
+    $max = max($array);
 
-    foreach ($array as $ar){
-        if($key = $m ){
-            unset ($array[$key]);
-        }
-        if ($key = $a){
-            unset ($array[$key]);
-        }
-    }
+    $minIndex = array_search($min, $array);
+    $maxIndex = array_search($max, $array);
+
+    unset($array[$minIndex]);
+    unset($array[$maxIndex]);
+
     return array_sum($array);
 }
 
-echo sumArray($sum);
+
+function sumArray2(array $array) {
+    $res = 0;
+    $min = min($array);
+    $max = max($array);
+
+    for ($i=0; $i < count($array); $i++){
+        if ( !($array[$i] == $min || $array[$i] == $max) ) $res += $array[$i];
+    }
+
+    return $res;
+}
+
+var_dump(sumArray1($sum));
+var_dump(sumArray2($sum));
